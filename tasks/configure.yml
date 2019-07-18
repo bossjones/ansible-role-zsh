@@ -1,7 +1,7 @@
 ---
 
 - name: Check zsh version
-  shell: "zsh --version | cut -d ' ' -f2"
+  shell: "{{zsh_path_to_shell}} --version | cut -d ' ' -f2"
   register: zsh_register_version
   check_mode: no
   changed_when: false
@@ -34,7 +34,7 @@
     zsh_hotkeys: "{{ zsh_hotkeys }} + {{ zsh_hotkeys_extras }}"
 
 - name: Check antigen version
-  shell: "cat {{ zsh_antigen_path }}/antigen/VERSION | tr -d 'v'"
+  shell: "{{zsh_path_to_cat}} {{ zsh_antigen_path }}/antigen/VERSION | tr -d 'v'"
   register: zsh_register_antigen_version
   changed_when: false
   become: true
@@ -53,12 +53,12 @@
     group: "{{ zsh_user_group }}"
     backup: yes
 
-- name: Set zsh as default shell
-  user:
-    name: "{{ zsh_user }}"
-    shell: /bin/zsh
-  become: true
-  when: not zsh_shared
+# - name: Set zsh as default shell
+#   user:
+#     name: "{{ zsh_user }}"
+#     shell: "{{ zsh_path_to_shell }}"
+#   become: true
+#   when: not zsh_shared
 
 - name: Add skip_global_compinit for disable early compinit call in Ubuntu
   lineinfile:

@@ -1,9 +1,40 @@
 ---
-- hosts: all
+# - hosts: all
+#   vars:
+#     # your extra bundles here
+#     zsh_antigen_bundles_extras: []
+#     # your variables here
+#     zsh_autosuggestions_bind_key: "^U"
+#   roles:
+#     - viasite-ansible.zsh
+
+
+# sudo ansible-playbook -i "localhost," -c local playbook.yml
+# sudo ansible-playbook -i "localhost," -c local playbook.yml --extra-vars="zsh_user=$(whoami)"
+# sudo ansible-playbook --ask-become-pass --check -i "localhost," -c local playbook.yml --extra-vars="zsh_user=$(whoami)"
+- hosts: localhost
+  environment:
+    NVM_LAZY_LOAD: True
   vars:
-    # your extra bundles here
-    zsh_antigen_bundles_extras: []
-    # your variables here
+    zsh_antigen_bundles_extras:
+      - joel-porquet/zsh-dircolors-solarized
+      - mollifier/anyframe
+      - zdharma/fast-syntax-highlighting
+      - wfxr/forgit
+      - { name: davidparsson/zsh-pyenv-lazy, command: pyenv }
+      - eventi/noreallyjustfuckingstopalready
+      # https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
+      - { name: vscode, command: code }
+      - { name: gpg-agent, command: gpg-agent }
+      - history
+      - { name: autopep8, command: autopep8 }
+      - { name: pipenv, command: pipenv }
+      - { name: pylint, command: pylint }
+      - { name: lukechilds/zsh-nvm, command: nvm }
+      - { name: Sparragus/zsh-auto-nvm-use, command: nvm }
+      - colored-man-pages
+      - osx
+
     zsh_autosuggestions_bind_key: "^U"
   roles:
-    - viasite-ansible.zsh
+    - ../ansible-role-zsh
