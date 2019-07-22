@@ -34,6 +34,14 @@
       - { name: Sparragus/zsh-auto-nvm-use, command: nvm }
       - colored-man-pages
       - osx
+      - ELLIOTTCABLE/rbenv.plugin.zsh
+      - gmatheu/zsh-explain-shell
+      - hacker-quotes
+      - bossjones/boss-git-zsh-plugin
+      # SOURCE: https://github.com/droctothorpe/kubecolor
+      # - droctothorpe/kubecolor
+      - srijanshetty/node.plugin.zsh
+      - amstrad/oh-my-matrix
 
     zsh_autosuggestions_bind_key: "^U"
   roles:
