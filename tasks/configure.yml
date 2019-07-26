@@ -53,6 +53,14 @@
     group: "{{ zsh_user_group }}"
     backup: yes
 
+- name: Write .zshrc.local config
+  template:
+    src: zshrc.local.j2
+    dest: "{{ zsh_config }}"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+    backup: yes
+
 # - name: Set zsh as default shell
 #   user:
 #     name: "{{ zsh_user }}"
