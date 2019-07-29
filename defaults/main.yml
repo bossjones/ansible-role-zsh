@@ -53,6 +53,11 @@ zsh_term: xterm-256color
 zsh_mc_solarized_skin: no
 
 zsh_path:
+  - $HOME/bin
+  - $HOME/.local/bin
+  - $HOME/.pyenv/bin
+  - $HOME/.rbenv/bin
+  - /usr/local/opt/coreutils/libexec/gnubin
   - /usr/local/sbin
   - /usr/local/bin
   - /usr/sbin

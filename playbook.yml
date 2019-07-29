@@ -44,5 +44,19 @@
       - amstrad/oh-my-matrix
 
     zsh_autosuggestions_bind_key: "^U"
+    zsh_path:
+      - $HOME/bin
+      - $HOME/.local/bin
+      - $HOME/.pyenv/bin
+      - $HOME/.rbenv/bin
+      - /usr/local/opt/coreutils/libexec/gnubin
+      - /usr/local/sbin
+      - /usr/local/bin
+      - /usr/sbin
+      - /usr/bin
+      - /sbin
+      - /bin
+      - /usr/games
+      - /usr/local/games
   roles:
     - ../ansible-role-zsh

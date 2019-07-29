@@ -56,7 +56,7 @@
 - name: Write .zshrc.local config
   template:
     src: zshrc.local.j2
-    dest: "{{ zsh_config }}"
+    dest: "~/.zshrc.local"
     owner: "{{ zsh_user }}"
     group: "{{ zsh_user_group }}"
     backup: yes
