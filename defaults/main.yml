@@ -5,6 +5,7 @@ zsh_user: "{{ ansible_user_id }}"
 zsh_path_to_shell: /usr/local/bin/zsh
 zsh_path_to_cat: /bin/cat
 zsh_disable_correction: no
+zsh_change_default_shell: no
 
 zsh_zshrc_local: |-
   alias gcl='git clone'

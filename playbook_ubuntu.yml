@@ -4,6 +4,7 @@
   environment:
     NVM_LAZY_LOAD: yes
   vars:
+    zsh_change_default_shell: yes
     zsh_path_to_shell: /bin/zsh
     zsh_antigen_bundles_extras:
       - joel-porquet/zsh-dircolors-solarized
