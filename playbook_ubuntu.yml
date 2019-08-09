@@ -55,7 +55,7 @@
       # Search ssh connect with peco
       - { name: luismayta/zsh-peco-ssh-connect, command: peco }
 
-      # - luismayta/zsh-gvm
+      - luismayta/zsh-gvm
       # - luismayta/zsh-nvm
       # - luismayta/zsh-rvm
       # - luismayta/zsh-rust
