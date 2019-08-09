@@ -199,7 +199,9 @@
       - /usr/local/games
 
     zsh_zshrc_local: |-
+      export SHELL="{{zsh_path_to_shell}}"
       export VIRTUAL_ENV_DISABLE_PROMPT=1
+      export ZSH_PYENV_LAZY_VIRTUALENV=1
 
       # Larger bash history (allow 32³ entries; default is 500)
 
