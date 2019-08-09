@@ -90,9 +90,9 @@
       # Pretty, minimal and fast ZSH prompt
       # - sindresorhus/pure
 
-    zsh_hotkeys_extras:
-    - { hotkey: '^[[3~', action: delete-char }
-    - { hotkey: '^[3;5~', action: delete-char }
+    # zsh_hotkeys_extras:
+    # - { hotkey: '^[[3~', action: delete-char }
+    # - { hotkey: '^[3;5~', action: delete-char }
 
     zsh_autosuggestions_bind_key: "^U"
     zsh_path:
