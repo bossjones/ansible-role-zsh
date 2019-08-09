@@ -210,6 +210,8 @@ zsh_powerlevel9k_right_prompt:
   - vcs
   - command_execution_time
   - time
+  - pyenv
+  - virtualenv
 
 zsh_powerlevel_custom_elements:
   - name: command_time
