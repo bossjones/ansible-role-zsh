@@ -1,9 +1,95 @@
 # USAGE: sudo ansible-playbook --ask-become-pass --check -i "localhost," -c local playbook.yml --extra-vars="zsh_user=$(whoami)"
 ---
+
+# # rbenv
+# git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+# echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+# echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+# git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+# # ruby
+# sudo apt-get install -y build-essential bison ruby-dev rake zlib1g-dev \
+#     libyaml-dev libssl-dev libreadline-dev libncurses5-dev llvm llvm-dev \
+#     libeditline-dev libedit-dev
+# rbenv install 2.2.3
+
 - hosts: localhost
   environment:
     NVM_LAZY_LOAD: yes
   vars:
+    rbenv:
+      env: system
+      version: v1.1.2
+      default_ruby: 2.5.1
+      rubies:
+        - version: 2.5.1
+
+    rbenv_clean_up: false
+
+    rbenv_repo: "https://github.com/rbenv/rbenv.git"
+
+    rbenv_plugins:
+      - { name: "rbenv-vars",         repo: "https://github.com/rbenv/rbenv-vars.git",         version: "master" }
+      - { name: "ruby-build",         repo: "https://github.com/rbenv/ruby-build.git",         version: "master" }
+      - { name: "rbenv-default-gems", repo: "https://github.com/rbenv/rbenv-default-gems.git", version: "master" }
+      - { name: "rbenv-installer",    repo: "https://github.com/rbenv/rbenv-installer.git",    version: "master" }
+      - { name: "rbenv-update",       repo: "https://github.com/rkh/rbenv-update.git",         version: "master" }
+      - { name: "rbenv-whatis",       repo: "https://github.com/rkh/rbenv-whatis.git",         version: "master" }
+      - { name: "rbenv-use",          repo: "https://github.com/rkh/rbenv-use.git",            version: "master" }
+
+    rbenv_root: "{% if rbenv.env == 'system' %}/usr/local/rbenv{% else %}~/.rbenv{% endif %}"
+
+    rbenv_set_vars: true
+
+    rbenv_users: []
+
+    rbenv_extra_depends:
+    - libssl1.0-dev
+    - build-essential
+    - bison
+    - ruby-dev
+    - rake
+    - zlib1g-dev
+    - libyaml-dev
+    - libssl-dev
+    - libreadline-dev
+    - libncurses5-dev
+    - llvm
+    - llvm-dev
+    - libeditline-dev
+    - libedit-dev
+    rbenv_apt_packages:
+    - build-essential
+    - curl
+    - git
+    - libcurl4-openssl-dev
+    - libffi-dev
+    - libreadline-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+    rbenv_dnf_packages:
+    - curl
+    - gcc
+    - openssl-devel
+    - libyaml-devel
+    - readline-devel
+    - zlib-devel
+    - libffi-devel
+    - git
+    rbenv_yum_packages:
+    - bzip2
+    - curl
+    - gcc
+    - git
+    - libffi-devel
+    - libyaml-devel
+    - openssl-devel
+    - readline-devel
+    - zlib-devel
+    rbenv_user_profile: true
+
     zsh_change_default_shell: yes
     zsh_path_to_shell: /bin/zsh
     zsh_antigen_bundles_extras:
@@ -23,6 +109,7 @@
       - { name: lukechilds/zsh-nvm, command: nvm }
       - { name: Sparragus/zsh-auto-nvm-use, command: nvm }
       - { name: ELLIOTTCABLE/rbenv.plugin.zsh, command: ruby }
+      # - { name: ELLIOTTCABLE/rbenv.plugin.zsh, command: ruby }
       - { name: colored-man-pages, command: man }
       - { name: srijanshetty/node.plugin.zsh, command: node }
       - osx
@@ -101,7 +188,7 @@
       - $HOME/.local/bin
       - $HOME/.pyenv/bin
       - $HOME/.rbenv/bin
-      - /usr/local/opt/coreutils/libexec/gnubin
+      # - /usr/local/opt/coreutils/libexec/gnubin
       - /usr/local/sbin
       - /usr/local/bin
       - /usr/sbin
@@ -150,13 +237,24 @@
       alias gus='git reset HEAD'
       alias gw='git whatchanged'
 
+      # Larger bash history (allow 32³ entries; default is 500)
+
+      export HISTFILE="$HOME/.zsh_history"
+      export HISTSIZE=100000
+      export HISTCONTROL=ignoredups
+      export SAVEHIST=$HISTSIZE
+
+      # Prefer US English and use UTF-8
+      export LANG=en_US.UTF-8
+      export LC_ALL=en_US.UTF-8
+
       # SOURCE: https://github.com/luismayta/dotfiles/blob/597ddc09e1bfccc43076ca21cb679299b83912e4/conf/shell/zshrc
       # don't put duplicate lines in the history. See bash(1) for more options
       # ... or force ignoredups and ignorespace
       HISTCONTROL=ignoredups:ignorespace
 
       # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-      HISTSIZE=10000
+      HISTSIZE=100000
       HISTFILESIZE=2000
 
       alias reload!='exec "$SHELL" -l'
