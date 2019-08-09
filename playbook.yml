@@ -14,7 +14,7 @@
 # sudo ansible-playbook --ask-become-pass --check -i "localhost," -c local playbook.yml --extra-vars="zsh_user=$(whoami)"
 - hosts: localhost
   environment:
-    NVM_LAZY_LOAD: True
+    NVM_LAZY_LOAD: yes
   vars:
     zsh_antigen_bundles_extras:
       - joel-porquet/zsh-dircolors-solarized
@@ -42,6 +42,68 @@
       # SOURCE: https://github.com/droctothorpe/kubecolor
       # - droctothorpe/kubecolor
       - amstrad/oh-my-matrix
+      #############################################################################################################################
+      # SOURCE: https://github.com/luismayta/dotfiles/blob/597ddc09e1bfccc43076ca21cb679299b83912e4/conf/shell/zshrc
+      #############################################################################################################################
+      # A zsh plugin to sync git repositories and clean them up.
+      - caarlos0/zsh-git-sync
+
+      # Because your terminal should be able to perform tasks asynchronously without external tools!
+      - mafredri/zsh-async
+      # Desktop notifications for long-running commands in zsh.
+      - marzocchi/zsh-notify
+      # Add zsh's missing hooks, and support for user-defined hooks
+      - willghatch/zsh-hooks
+
+      # A collection of git utilities and useful extra git scripts I've discovered or written, packaged for ease of use with shell frameworks.
+      - unixorn/git-extra-commands
+
+      # alias for docker aliases
+      - { name: luismayta/zsh-docker-aliases, command: docker }
+      # servers functions for shell
+      - luismayta/zsh-servers-functions
+      # Search ssh connect with peco
+      - { name: luismayta/zsh-peco-ssh-connect, command: peco }
+
+      # - luismayta/zsh-gvm
+      # - luismayta/zsh-nvm
+      # - luismayta/zsh-rvm
+      # - luismayta/zsh-rust
+      # - luismayta/zsh-pyenv
+      # - igoradamenko/jira.plugin.zsh
+
+
+      # Plugin for lazy-loading pyenv in zsh.
+      - { name: erikced/zsh-pyenv-lazy-load, command: pyenv }
+
+      # A zsh plugin for lazy loading of pyenv-virtualenv. The initial eval "$(pyenv virtualenv-init -)" is executed the first time pyenv-virtualenv is called.
+      - { name: kadaan/zsh-pyenv-virtualenv-lazy, command: pyenv }
+
+      # - luismayta/zsh-transfer
+      # - luismayta/zsh-flutter
+
+      # This ZSH plugin enhances the terminal environment with 256 colors. It looks at the chosen TERM environment variable and sees if there is respective (n-)curses' termcap/terminfo descriptors for 256 colors available. The result is a multicolor terminal, if available.
+      - chrissicool/zsh-256color
+      # - wbinglee/zsh-wakatime
+
+      # # Additional completion definitions for Zsh.
+      # - zsh-users/zsh-completions
+      # # - wwilsman/zsh-clean-project
+
+      # Convert seconds to a human readable string: 165392 → 1d 21h 56m 32s
+      - sindresorhus/pretty-time-zsh
+
+      # Search shell history with peco when pressing ctrl+r.
+      # - jimeh/zsh-peco-history
+      # ZSH port of Fish history search (up arrow)
+      - zsh-users/zsh-history-substring-search
+
+      # Pretty, minimal and fast ZSH prompt
+      # - sindresorhus/pure
+
+    zsh_hotkeys_extras:
+    - { hotkey: '^[[3~', action: delete-char }
+    - { hotkey: '^[3;5~', action: delete-char }
 
     zsh_autosuggestions_bind_key: "^U"
     zsh_path:
@@ -58,5 +120,56 @@
       - /bin
       - /usr/games
       - /usr/local/games
+
+  zsh_zshrc_local: |-
+    alias gcl='git clone'
+    alias gpr='git pull --rebase'
+
+    alias __git_find_subcommand='__git_find_on_cmdline'
+    alias g='git'
+    alias ga='git add'
+    alias gall='git add .'
+    alias gb='git branch'
+    alias gba='git branch -a'
+    alias gc='git commit -v'
+    alias gca='git commit -v -a'
+    alias gci='git commit --interactive'
+    alias gcl='git clone'
+    alias gcm='git commit -v -m'
+    alias gco='git checkout'
+    alias gcount='git shortlog -sn'
+    alias gcp='git cherry-pick'
+    alias gd='git diff | /usr/local/bin/mvim -f'
+    alias gdel='git branch -D'
+    alias get='git'
+    alias gexport='git archive --format zip --output'
+    alias gg='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
+    alias gl='git pull'
+    alias gll='git log --graph --pretty=oneline --abbrev-commit'
+    alias gm='git merge'
+    alias gmu='git fetch origin -v; git fetch upstream -v; git merge upstream/master'
+    alias gp='git push'
+    alias gpo='git push origin'
+    alias gpp='git pull && git push'
+    alias gpr='git pull --rebase'
+    alias gs='git status'
+    alias gsl='git shortlog -sn'
+    alias gss='git status -s'
+    alias gst='git status'
+    alias gup='git fetch && git rebase'
+    alias gus='git reset HEAD'
+    alias gw='git whatchanged'
+
+    # SOURCE: https://github.com/luismayta/dotfiles/blob/597ddc09e1bfccc43076ca21cb679299b83912e4/conf/shell/zshrc
+    # don't put duplicate lines in the history. See bash(1) for more options
+    # ... or force ignoredups and ignorespace
+    HISTCONTROL=ignoredups:ignorespace
+
+    # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+    HISTSIZE=10000
+    HISTFILESIZE=2000
+
+    alias reload!='exec "$SHELL" -l'
+
   roles:
     - ../ansible-role-zsh
