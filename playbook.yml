@@ -16,6 +16,80 @@
   environment:
     NVM_LAZY_LOAD: yes
   vars:
+    rbenv:
+      env: system
+      version: v1.1.2
+      default_ruby: 2.5.1
+      rubies:
+        - version: 2.5.1
+
+    rbenv_clean_up: false
+
+    rbenv_repo: "https://github.com/rbenv/rbenv.git"
+
+    rbenv_plugins:
+      - { name: "rbenv-vars",         repo: "https://github.com/rbenv/rbenv-vars.git",         version: "master" }
+      - { name: "ruby-build",         repo: "https://github.com/rbenv/ruby-build.git",         version: "master" }
+      - { name: "rbenv-default-gems", repo: "https://github.com/rbenv/rbenv-default-gems.git", version: "master" }
+      - { name: "rbenv-installer",    repo: "https://github.com/rbenv/rbenv-installer.git",    version: "master" }
+      - { name: "rbenv-update",       repo: "https://github.com/rkh/rbenv-update.git",         version: "master" }
+      - { name: "rbenv-whatis",       repo: "https://github.com/rkh/rbenv-whatis.git",         version: "master" }
+      - { name: "rbenv-use",          repo: "https://github.com/rkh/rbenv-use.git",            version: "master" }
+
+    rbenv_root: "{% if rbenv.env == 'system' %}/usr/local/rbenv{% else %}~/.rbenv{% endif %}"
+
+    rbenv_set_vars: true
+
+    rbenv_users: []
+
+    rbenv_extra_depends:
+    - libssl1.0-dev
+    - build-essential
+    - bison
+    - ruby-dev
+    - rake
+    - zlib1g-dev
+    - libyaml-dev
+    - libssl-dev
+    - libreadline-dev
+    - libncurses5-dev
+    - llvm
+    - llvm-dev
+    - libeditline-dev
+    - libedit-dev
+    rbenv_apt_packages:
+    - build-essential
+    - curl
+    - git
+    - libcurl4-openssl-dev
+    - libffi-dev
+    - libreadline-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+    rbenv_dnf_packages:
+    - curl
+    - gcc
+    - openssl-devel
+    - libyaml-devel
+    - readline-devel
+    - zlib-devel
+    - libffi-devel
+    - git
+    rbenv_yum_packages:
+    - bzip2
+    - curl
+    - gcc
+    - git
+    - libffi-devel
+    - libyaml-devel
+    - openssl-devel
+    - readline-devel
+    - zlib-devel
+    rbenv_user_profile: true
+    zsh_change_default_shell: no
+    zsh_path_to_shell: /usr/local/bin/zsh
     zsh_antigen_bundles_extras:
       - joel-porquet/zsh-dircolors-solarized
       - mollifier/anyframe
@@ -33,15 +107,16 @@
       - { name: lukechilds/zsh-nvm, command: nvm }
       - { name: Sparragus/zsh-auto-nvm-use, command: nvm }
       - { name: ELLIOTTCABLE/rbenv.plugin.zsh, command: ruby }
+      # - { name: ELLIOTTCABLE/rbenv.plugin.zsh, command: ruby }
       - { name: colored-man-pages, command: man }
       - { name: srijanshetty/node.plugin.zsh, command: node }
-      - osx
-      - gmatheu/zsh-explain-shell
-      - hacker-quotes
+      # - osx
+      # - gmatheu/zsh-explain-shell
+      # - hacker-quotes
       - { name: bossjones/boss-git-zsh-plugin, command: git }
       # SOURCE: https://github.com/droctothorpe/kubecolor
       # - droctothorpe/kubecolor
-      - amstrad/oh-my-matrix
+      # - amstrad/oh-my-matrix
       #############################################################################################################################
       # SOURCE: https://github.com/luismayta/dotfiles/blob/597ddc09e1bfccc43076ca21cb679299b83912e4/conf/shell/zshrc
       #############################################################################################################################
@@ -96,14 +171,14 @@
       # Search shell history with peco when pressing ctrl+r.
       # - jimeh/zsh-peco-history
       # ZSH port of Fish history search (up arrow)
-      - zsh-users/zsh-history-substring-search
+      # - zsh-users/zsh-history-substring-search
 
       # Pretty, minimal and fast ZSH prompt
       # - sindresorhus/pure
 
-    zsh_hotkeys_extras:
-    - { hotkey: '^[[3~', action: delete-char }
-    - { hotkey: '^[3;5~', action: delete-char }
+    # zsh_hotkeys_extras:
+    # - { hotkey: '^[[3~', action: delete-char }
+    # - { hotkey: '^[3;5~', action: delete-char }
 
     zsh_autosuggestions_bind_key: "^U"
     zsh_path:
@@ -111,7 +186,7 @@
       - $HOME/.local/bin
       - $HOME/.pyenv/bin
       - $HOME/.rbenv/bin
-      - /usr/local/opt/coreutils/libexec/gnubin
+      # - /usr/local/opt/coreutils/libexec/gnubin
       - /usr/local/sbin
       - /usr/local/bin
       - /usr/sbin
@@ -121,55 +196,33 @@
       - /usr/games
       - /usr/local/games
 
-  zsh_zshrc_local: |-
-    alias gcl='git clone'
-    alias gpr='git pull --rebase'
+    zsh_zshrc_local: |-
+      export SHELL="{{zsh_path_to_shell}}"
+      export VIRTUAL_ENV_DISABLE_PROMPT=1
+      export ZSH_PYENV_LAZY_VIRTUALENV=1
 
-    alias __git_find_subcommand='__git_find_on_cmdline'
-    alias g='git'
-    alias ga='git add'
-    alias gall='git add .'
-    alias gb='git branch'
-    alias gba='git branch -a'
-    alias gc='git commit -v'
-    alias gca='git commit -v -a'
-    alias gci='git commit --interactive'
-    alias gcl='git clone'
-    alias gcm='git commit -v -m'
-    alias gco='git checkout'
-    alias gcount='git shortlog -sn'
-    alias gcp='git cherry-pick'
-    alias gd='git diff | /usr/local/bin/mvim -f'
-    alias gdel='git branch -D'
-    alias get='git'
-    alias gexport='git archive --format zip --output'
-    alias gg='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset'\'' --abbrev-commit --date=relative'
-    alias gl='git pull'
-    alias gll='git log --graph --pretty=oneline --abbrev-commit'
-    alias gm='git merge'
-    alias gmu='git fetch origin -v; git fetch upstream -v; git merge upstream/master'
-    alias gp='git push'
-    alias gpo='git push origin'
-    alias gpp='git pull && git push'
-    alias gpr='git pull --rebase'
-    alias gs='git status'
-    alias gsl='git shortlog -sn'
-    alias gss='git status -s'
-    alias gst='git status'
-    alias gup='git fetch && git rebase'
-    alias gus='git reset HEAD'
-    alias gw='git whatchanged'
+      # Larger bash history (allow 32³ entries; default is 500)
 
-    # SOURCE: https://github.com/luismayta/dotfiles/blob/597ddc09e1bfccc43076ca21cb679299b83912e4/conf/shell/zshrc
-    # don't put duplicate lines in the history. See bash(1) for more options
-    # ... or force ignoredups and ignorespace
-    HISTCONTROL=ignoredups:ignorespace
+      export HISTFILE="$HOME/.zsh_history"
+      export HISTSIZE=100000
+      export HISTCONTROL=ignoredups
+      export SAVEHIST=$HISTSIZE
 
-    # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-    HISTSIZE=10000
-    HISTFILESIZE=2000
+      # Prefer US English and use UTF-8
+      export LANG=en_US.UTF-8
+      export LC_ALL=en_US.UTF-8
 
-    alias reload!='exec "$SHELL" -l'
+      # SOURCE: https://github.com/luismayta/dotfiles/blob/597ddc09e1bfccc43076ca21cb679299b83912e4/conf/shell/zshrc
+      # don't put duplicate lines in the history. See bash(1) for more options
+      # ... or force ignoredups and ignorespace
+      HISTCONTROL=ignoredups:ignorespace
+
+      # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+      HISTSIZE=100000
+      HISTFILESIZE=2000
+
+      alias reload!='exec "$SHELL" -l'
 
   roles:
     - ../ansible-role-zsh
+

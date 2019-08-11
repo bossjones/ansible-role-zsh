@@ -61,6 +61,14 @@
     group: "{{ zsh_user_group }}"
     backup: yes
 
+- name: "Ensure {{zsh_path_to_shell}} is in /etc/shells"
+  lineinfile:
+    path: /etc/shells
+    regexp: '^{{zsh_path_to_shell}}$'
+    line: '{{zsh_path_to_shell}}'
+  become: true
+  when: zsh_change_default_shell
+
 - name: Set zsh as default shell
   user:
     name: "{{ zsh_user }}"
