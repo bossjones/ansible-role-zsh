@@ -95,7 +95,7 @@
       - mollifier/anyframe
       - zdharma/fast-syntax-highlighting
       - wfxr/forgit
-      - { name: davidparsson/zsh-pyenv-lazy, command: pyenv }
+      # - { name: davidparsson/zsh-pyenv-lazy, command: pyenv }
       - { name: eventi/noreallyjustfuckingstopalready, command: killall }
       # https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
       - { name: vscode, command: code }
@@ -152,7 +152,7 @@
       - { name: erikced/zsh-pyenv-lazy-load, command: pyenv }
 
       # A zsh plugin for lazy loading of pyenv-virtualenv. The initial eval "$(pyenv virtualenv-init -)" is executed the first time pyenv-virtualenv is called.
-      - { name: kadaan/zsh-pyenv-virtualenv-lazy, command: pyenv }
+      # - { name: kadaan/zsh-pyenv-virtualenv-lazy, command: pyenv }
 
       # - luismayta/zsh-transfer
       # - luismayta/zsh-flutter
@@ -198,6 +198,8 @@
 
     zsh_zshrc_local: |-
       export SHELL="{{zsh_path_to_shell}}"
+      export RBENV_ROOT=~/.rbenv
+      export RBENV_VERSION=2.5.1
       export VIRTUAL_ENV_DISABLE_PROMPT=1
       export ZSH_PYENV_LAZY_VIRTUALENV=1
 
