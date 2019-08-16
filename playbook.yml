@@ -1,14 +1,4 @@
 ---
-# - hosts: all
-#   vars:
-#     # your extra bundles here
-#     zsh_antigen_bundles_extras: []
-#     # your variables here
-#     zsh_autosuggestions_bind_key: "^U"
-#   roles:
-#     - viasite-ansible.zsh
-
-
 # sudo ansible-playbook -i "localhost," -c local playbook.yml
 # sudo ansible-playbook -i "localhost," -c local playbook.yml --extra-vars="zsh_user=$(whoami)"
 # sudo ansible-playbook --ask-become-pass --check -i "localhost," -c local playbook.yml --extra-vars="zsh_user=$(whoami)"
@@ -91,6 +81,7 @@
     zsh_change_default_shell: no
     zsh_path_to_shell: /usr/local/bin/zsh
     zsh_antigen_bundles_extras:
+      - nvm
       - joel-porquet/zsh-dircolors-solarized
       - mollifier/anyframe
       - zdharma/fast-syntax-highlighting
@@ -202,6 +193,10 @@
       export RBENV_VERSION=2.5.1
       export VIRTUAL_ENV_DISABLE_PROMPT=1
       export ZSH_PYENV_LAZY_VIRTUALENV=1
+      # OS X nvm load
+      [ -s "/usr/local/opt/nvm/nvm.sh" ] && . /usr/local/opt/nvm/nvm.sh # This loads nvm
+      export NVM_LAZY_LOAD=true
+      export NVM_AUTO_USE=true
 
       # Larger bash history (allow 32³ entries; default is 500)
 
@@ -224,6 +219,9 @@
       HISTFILESIZE=2000
 
       alias reload!='exec "$SHELL" -l'
+
+      setopt HIST_FIND_NO_DUPS
+      # setopt HIST_IGNORE_ALL_DUPS
 
   roles:
     - ../ansible-role-zsh
