@@ -105,6 +105,7 @@
       # - gmatheu/zsh-explain-shell
       # - hacker-quotes
       - { name: bossjones/boss-git-zsh-plugin, command: git }
+      - { name: bossjones/boss-docker-zsh-plugin, command: docker }
       # SOURCE: https://github.com/droctothorpe/kubecolor
       # - droctothorpe/kubecolor
       # - amstrad/oh-my-matrix
