@@ -91,6 +91,7 @@ zsh_antigen_bundles:
   - { name: brew, command: brew }
   - { name: docker, command: docker }
   - { name: docker-compose, command: docker-compose }
+  - { name: docker-machine, command: docker-machine }
   - fancy-ctrl-z
   - git-extras
   - gnu-utils
@@ -103,6 +104,7 @@ zsh_antigen_bundles:
   - { name: systemd, command: systemctl }
   - { name: pyenv, command: pyenv }
   - python
+  - rbenv
   - { name: tmux, command: tmux }
   - { name: vagrant, command: vagrant }
   - { name: viasite/drall, command: drall }
@@ -110,6 +112,11 @@ zsh_antigen_bundles:
   - { name: viasite/server-scripts, command: dbdump }
   - { name: viasite-ansible/zsh-ansible-server, command: ansible-deploy }
   - zsh_reload
+  - tmux
+  - tmuxinator
+  - golang
+  - ssh-agent
+  - fd
 
   # on zsh 4.3.10 autosuggestions breaks multiline commands with \
   - zsh-users/zsh-autosuggestions
